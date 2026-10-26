@@ -149,9 +149,24 @@ or serialization contract is introduced by this source metadata correction.
 
 ## Confirmed test execution
 
-- Parent-owned pristine baseline is confirmed above; fork candidate NOT RUN.
-- Planning-only upload: ticket and validation specification only. No executable
-  source/resource/test changes. Native execution belongs to the Luna owner.
+- 2026-10-26, pristine fork baseline before source change:
+  `rtk python "C:\Users\Alex\.codex\worktrees\2853\NetworkedGameProject\tools\testing\opaque.py" --result-stem tkt001-baseline --summary build/test-results/tkt001-baseline-summary.json --log build/test-results/tkt001-baseline.log -- rtk python build/tkt001-native-diagnostic.py --reuse-host`
+- Result: diagnostic process PASS (all four native commands exit 0), baseline
+  acceptance FAIL as expected because each theme load emits two UID fallback
+  warnings. On Godot `4.8.dev.custom_build.63b7e0272`, the clean editor import
+  and repeated editor import each had zero warning/error diagnostics. The first
+  and repeated theme loads succeeded; both `sort_ascending` and `sort_descending`
+  were non-null `Texture2D` values, with exactly two warnings per load.
+- Source observation: `resources/table_view.tres` SHA-256 was
+  `d23a1d094681f62b643a7c95f86e96fbafba75522e6b133dbd65fb26c5b01481`
+  before clean import, after clean import, after first load, after repeated
+  import, and after repeated load. Import does not rewrite either UID attribute.
+- Requirements covered: `DEPS-01` consumer compatibility diagnostic; this is
+  the recorded pre-fix baseline, not candidate acceptance. Summary and raw log
+  remain under ignored `build/test-results/`; disposable consumer host and
+  probe remain under ignored `build/`.
+- Planning-only upload `0c17e2b` contained ticket and validation specification;
+  no executable source/resource/test changes were present then.
 
 ## Blocker
 
