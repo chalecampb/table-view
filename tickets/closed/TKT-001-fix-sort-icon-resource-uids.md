@@ -1,8 +1,8 @@
 ---
 id: TKT-001
 title: Fix sort icon references on clean consumer imports
-status: in_review
-done: false
+status: closed
+done: true
 blocked: false
 priority: high
 requirements:
@@ -97,15 +97,15 @@ Alex, recording any actual source changes and warnings rather than assuming.
 
 ## Acceptance criteria and canonical validation
 
-- [ ] The two optional stale UID hints are removed; stable paths and complete
+- [x] The two optional stale UID hints are removed; stable paths and complete
   upstream resource/code/license contents remain intact.
-- [ ] Native clean import and subsequent theme/icon load succeed with zero
+- [x] Native clean import and subsequent theme/icon load succeed with zero
   warnings/errors; both sort icons are non-null Texture2D resources.
-- [ ] A second normal import/load also succeeds without warnings or authoring
+- [x] A second normal import/load also succeeds without warnings or authoring
   source changes. Record whether baseline import repaired anything.
-- [ ] Bounded source diff and whitespace checks pass; generated metadata and
+- [x] Bounded source diff and whitespace checks pass; generated metadata and
   test evidence remain untracked/ignored.
-- [ ] Exact-head Sol approval, GitHub merge and tree equivalence/mismatch checks
+- [x] Exact-head Sol approval, GitHub merge and tree equivalence/mismatch checks
   are recorded before audit-only closure and immutable parent-pin handoff.
 
 Canonical test table: docs/TESTING.md, rows TV-CLEAN, TV-REPEAT, TV-SCOPE.
@@ -227,3 +227,30 @@ or serialization contract is introduced by this source metadata correction.
 
 - 2026-10-26 — Original Sol approves this independently executable plan and
   the tightly scoped metadata fix. Candidate source approval remains pending.
+
+## Verified closure — 2026-10-26 03:23 EDT
+
+- Exact-head Sol approval for `77959c8b8cb530f23149661539d5c19f3cf2c763`:
+  https://github.com/chalecampb/table-view/pull/1#issuecomment-6410517222.
+- GitHub PR #1 merged using squash and expected-head protection to
+  `4fd8aba754c05791fe67cb31d04896808f4fe071`.
+- Reviewed head and merged primary trees both:
+  `9716206606eecad274ceb902dde811369604e39c`.
+- Exact comparison commands from fork root:
+  `rtk git show -s --format=%T 77959c8b8cb530f23149661539d5c19f3cf2c763` and
+  `rtk git show -s --format=%T 4fd8aba754c05791fe67cb31d04896808f4fe071`.
+- Result: TREE_EQUIVALENT; confirmed native evidence carries forward without
+  duplicate runs. Sol read the exact resource/ignore diff, canonical validation
+  table, compact packet, existing diagnostic driver and named phase markers.
+- TV-CLEAN/TV-REPEAT verified: four native phases exit 0, zero diagnostic
+  severities, both named icons non-null on both loads, authored theme unchanged
+  across each import/load. Baseline retains two warnings per load even after
+  repeat import, demonstrating that import does not repair these source hints.
+- TV-SCOPE: two stale UID attributes only, with root build/cache ignore rules;
+  tested-to-reviewed changes are ticket-only. No generated metadata, public
+  upstream report, parent overlay or unrelated source change.
+- No standalone CI/full suite existed in this fork. Parent TKT-211 owns its
+  independent source/style/startup/full fresh-clone acceptance after consuming
+  the exact immutable fork merge `4fd8aba754c05791fe67cb31d04896808f4fe071`.
+- This closure changes only ticket state/checklist and append-only audit prose,
+  moving review to closed. Source, worktrees and ignored evidence are preserved.
