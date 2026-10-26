@@ -1,16 +1,16 @@
 ---
 id: TKT-001
 title: Fix sort icon references on clean consumer imports
-status: new
+status: in_progress
 done: false
 blocked: false
 priority: high
 requirements:
   - DEPS-01
-owner: unassigned
-thread_id: null
-branch: null
-worktree: null
+owner: gpt-6-luna (high)
+thread_id: 01a176b5-e413-75c3-9a9f-a6a9c729de3c
+branch: codex/tkt-001-sort-icon-uids
+worktree: C:/Users/Alex/.codex/worktrees/2853/table-view
 created: 2026-10-26
 updated: 2026-10-26
 ---
@@ -134,6 +134,18 @@ or serialization contract is introduced by this source metadata correction.
 - Reuse this exact owner/branch/PR for corrections. Final Sol review input is
   current approved ticket/test table, exact PR head/delta, compact evidence and
   unresolved findings; no historical narrative or full raw logs.
+
+## Implementation dispatch
+
+- Started 2026-10-26 under the existing TKT-211 Luna/High owner chat
+  `01a176b5-e413-75c3-9a9f-a6a9c729de3c`; original Sol
+  `01a17198-0d85-7e82-8cd0-cacc8ef4b768` retains review/merge authority.
+- Fork: `chalecampb/table-view`, branch
+  `codex/tkt-001-sort-icon-uids`, worktree
+  `C:/Users/Alex/.codex/worktrees/2853/table-view`; base planning commit
+  `0c17e2b` from reviewed `main`.
+- Fork PR: pending; do not merge or update the parent pin before Sol's exact-head
+  review and merged immutable revision handoff.
 
 ## Confirmed test execution
 
