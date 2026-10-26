@@ -1,16 +1,16 @@
 ---
 id: TKT-001
 title: Fix sort icon references on clean consumer imports
-status: new
+status: in_review
 done: false
 blocked: false
 priority: high
 requirements:
   - DEPS-01
-owner: unassigned
-thread_id: null
-branch: null
-worktree: null
+owner: gpt-6-luna (high)
+thread_id: 01a176b5-e413-75c3-9a9f-a6a9c729de3c
+branch: codex/tkt-001-sort-icon-uids
+worktree: C:/Users/Alex/.codex/worktrees/2853/table-view
 created: 2026-10-26
 updated: 2026-10-26
 ---
@@ -130,16 +130,94 @@ or serialization contract is introduced by this source metadata correction.
 - Persistent Luna / local: 01a176b5-e413-75c3-9a9f-a6a9c729de3c.
 - Branch: codex/tkt-001-sort-icon-uids.
 - Planned companion worktree: C:/Users/Alex/.codex/worktrees/2853/table-view.
-- Fork PR, tested SHA, review/merge SHA and consumed parent pin: pending.
+- Fork PR: [chalecampb/table-view #1](https://github.com/chalecampb/table-view/pull/1),
+  current head `f296902df85c73fe96d909c502b853b677ee9139`.
+- Tested implementation SHA: `f296902df85c73fe96d909c502b853b677ee9139`.
+- Review/merge SHA and consumed parent pin: pending Sol approval/merge.
 - Reuse this exact owner/branch/PR for corrections. Final Sol review input is
   current approved ticket/test table, exact PR head/delta, compact evidence and
   unresolved findings; no historical narrative or full raw logs.
 
+## Implementation dispatch
+
+- Started 2026-10-26 under the existing TKT-211 Luna/High owner chat
+  `01a176b5-e413-75c3-9a9f-a6a9c729de3c`; original Sol
+  `01a17198-0d85-7e82-8cd0-cacc8ef4b768` retains review/merge authority.
+- Fork: `chalecampb/table-view`, branch
+  `codex/tkt-001-sort-icon-uids`, worktree
+  `C:/Users/Alex/.codex/worktrees/2853/table-view`; base planning commit
+  `0c17e2b` from reviewed `main`.
+- Fork PR: [chalecampb/table-view #1](https://github.com/chalecampb/table-view/pull/1);
+  current head `f296902df85c73fe96d909c502b853b677ee9139`. Do not merge or
+  update the parent pin before Sol's exact-head review and merged immutable
+  revision handoff.
+
 ## Confirmed test execution
 
-- Parent-owned pristine baseline is confirmed above; fork candidate NOT RUN.
-- Planning-only upload: ticket and validation specification only. No executable
-  source/resource/test changes. Native execution belongs to the Luna owner.
+- 2026-10-26, pristine fork baseline before source change:
+  `rtk python "C:\Users\Alex\.codex\worktrees\2853\NetworkedGameProject\tools\testing\opaque.py" --result-stem tkt001-baseline --summary build/test-results/tkt001-baseline-summary.json --log build/test-results/tkt001-baseline.log -- rtk python build/tkt001-native-diagnostic.py --reuse-host`
+- Result: diagnostic process PASS (all four native commands exit 0), baseline
+  acceptance FAIL as expected because each theme load emits two UID fallback
+  warnings. On Godot `4.8.dev.custom_build.63b7e0272`, the clean editor import
+  and repeated editor import each had zero warning/error diagnostics. The first
+  and repeated theme loads succeeded; both `sort_ascending` and `sort_descending`
+  were non-null `Texture2D` values, with exactly two warnings per load.
+- Source observation: `resources/table_view.tres` SHA-256 was
+  `d23a1d094681f62b643a7c95f86e96fbafba75522e6b133dbd65fb26c5b01481`
+  before clean import, after clean import, after first load, after repeated
+  import, and after repeated load. Import does not rewrite either UID attribute.
+- Requirements covered: `DEPS-01` consumer compatibility diagnostic; this is
+  the recorded pre-fix baseline, not candidate acceptance. Summary and raw log
+  remain under ignored `build/test-results/`; disposable consumer host and
+  probe remain under ignored `build/`.
+- Planning-only upload `0c17e2b` contained ticket and validation specification;
+  no executable source/resource/test changes were present then.
+
+### Candidate validation — tested implementation `f296902df85c73fe96d909c502b853b677ee9139`
+
+- Exact command:
+  `rtk python "C:\Users\Alex\.codex\worktrees\2853\NetworkedGameProject\tools\testing\opaque.py" --result-stem tkt001-candidate --summary build/test-results/tkt001-candidate-summary.json --log build/test-results/tkt001-candidate.log -- rtk python build/tkt001-native-diagnostic.py --host-name tkt001-candidate-host`
+- Result: PASS, selected Godot `4.8.dev.custom_build.63b7e0272`. TV-CLEAN and
+  TV-REPEAT editor imports and resource loads all exited 0 with zero
+  `WARNING`, `ERROR`, or `SCRIPT ERROR` diagnostics. Both
+  `sort_ascending` and `sort_descending` returned non-null `Texture2D` icons on
+  both loads. Source SHA-256
+  `e71b9b21a840e884e870abb1056f72b5432bad9fd7f17851ef89c24c880844b3`
+  was unchanged before/after each import and load.
+- TV-SCOPE: `rtk git diff --check` PASS. The tested implementation diff is
+  exactly the two requested UID attribute removals in
+  `resources/table_view.tres`; no generated import files or unrelated package
+  source changed. `.gitignore` adds only root `/.godot/` and `/build/` ignores
+  for disposable validation output.
+- Fork has no existing CI or standalone full suite; none was invented or
+  claimed. Candidate summary and raw log remain under ignored
+  `build/test-results/`; the consumer project and probe remain under ignored
+  `build/`.
+- Requirements covered: `DEPS-01` consumer compatibility. Parent consumer/full
+  acceptance remains in TKT-211 after Sol merges and supplies the immutable
+  fork revision.
+
+- GitHub PR: [chalecampb/table-view #1](https://github.com/chalecampb/table-view/pull/1)
+- Source branch: `chalecampb/table-view:codex/tkt-001-sort-icon-uids`
+- Tested implementation commit: `f296902df85c73fe96d909c502b853b677ee9139`
+- Review/evidence commit: HEAD after this ticket-only update (not tested)
+- Tested range: `0c17e2b..f296902df85c73fe96d909c502b853b677ee9139`
+- Correction range: `none; first implementation review`
+- Review/evidence range: `f296902df85c73fe96d909c502b853b677ee9139..HEAD`
+- Focused: PASS — exact OPAQUE command above; summary
+  `build/test-results/tkt001-candidate-summary.json`; raw log and clean/repeat
+  host icon assertions retained under ignored `build/`.
+- Candidate: PASS — same exact OPAQUE command and summary; fork criteria
+  TV-CLEAN, TV-REPEAT, and TV-SCOPE all pass.
+- Python production utilities: NOT APPLICABLE — only authored resource
+  metadata and ignore rules changed.
+- Annotations: NOT APPLICABLE — no GDScript source changed.
+- Full: NOT APPLICABLE — no fork CI or standalone full suite exists.
+- Editor/import: PASS — exact wrapped command above; Godot
+  `4.8.dev.custom_build.63b7e0272`; diagnostic source: OPAQUE console capture;
+  clean import 0, first load 0, repeat import 0, repeat load 0 warnings/errors.
+- Failures: None in candidate. The pre-fix baseline's two warnings per load
+  remain recorded above as diagnosis evidence.
 
 ## Blocker
 
